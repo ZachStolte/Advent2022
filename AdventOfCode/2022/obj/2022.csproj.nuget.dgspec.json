@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\2022\\2022.csproj": {}
+    "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\Advent2022\\AdventOfCode\\2022\\2022.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\2022\\2022.csproj": {
+    "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\Advent2022\\AdventOfCode\\2022\\2022.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\2022\\2022.csproj",
+        "projectUniqueName": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\Advent2022\\AdventOfCode\\2022\\2022.csproj",
         "projectName": "2022",
-        "projectPath": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\2022\\2022.csproj",
+        "projectPath": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\Advent2022\\AdventOfCode\\2022\\2022.csproj",
         "packagesPath": "C:\\Users\\zachs\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\2022\\obj\\",
+        "outputPath": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\Advent2022\\AdventOfCode\\2022\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\zachs\\AppData\\Roaming\\NuGet\\NuGet.Config",

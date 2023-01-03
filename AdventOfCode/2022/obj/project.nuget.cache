@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h6sLhBdLlxX7/buRSWgAyZAB9aspJVJNEzYRPfCdm6iIRscrRxMItY5m7zVX0Yl44RK1eFvdcHMyc6Fn8yvjrg==",
+  "dgSpecHash": "d+02dyVxukNFuYBPUF6eimXgrOZmD8uSxWKIhVp59AByzw5rZkyJNIUvCuhuerXzcB670WtxZvIfa1JDzR/R3w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\2022\\2022.csproj",
+  "projectFilePath": "C:\\Users\\zachs\\AdventOfCode\\2022\\AdventOfCode\\Advent2022\\AdventOfCode\\2022\\2022.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

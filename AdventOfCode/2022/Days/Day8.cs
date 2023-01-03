@@ -1,4 +1,4 @@
-  class Template
+  class Day8
     {
 
         public class Tree {
@@ -8,7 +8,7 @@
             public int gridEdge;
             public List<Tree> neighbors;
             public Boolean checkVis(Char Direction){
-                if (Direction = 'N'){
+                if (Direction == 'N'){
                     if(y == 0){
                         return true;
                     }
@@ -19,8 +19,8 @@
                         return false;
                     }
                 }
-                if (Direction = 'E'){
-                    if(X == gridEdge){
+                if (Direction == 'E'){
+                    if(x == gridEdge){
                         return true;
                     }
                     else if (neighbors[0].size < size){
@@ -30,7 +30,7 @@
                         return false;
                     }
                 }
-                if (Direction = 'S'){
+                if (Direction == 'S'){
                     if(y == gridEdge){
                         return true;
                     }
@@ -41,7 +41,7 @@
                         return false;
                     }
                 }
-                if (Direction = 'W'){
+                if (Direction == 'W'){
                     if(x == 0){
                         return true;
                     }
@@ -52,6 +52,7 @@
                         return false;
                     }
                 }
+                return false;
             }
         }
 
@@ -103,7 +104,7 @@
                     grid[iterator][i] = new Tree();
                     grid[iterator][i].x = i;
                     grid[iterator][i].y = iterator;
-                    grid[iterator][i].size = Int32.Parse(line[i]);
+                    grid[iterator][i].size = Int32.Parse(line[i].ToString());
                     grid[iterator][i].gridEdge = gridDim;
                 }
                 line = sr.ReadLine();
