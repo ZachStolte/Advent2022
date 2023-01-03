@@ -1,7 +1,7 @@
   //https://adventofcode.com/2022/day/6
   
-  class Day6
-    {
+  class Day6    
+  {
         public static void Part1(StreamReader sr)
         {
             string line = "";
