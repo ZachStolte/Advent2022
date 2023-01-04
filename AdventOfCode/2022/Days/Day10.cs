@@ -1,3 +1,5 @@
+   //https://adventofcode.com/2022/day/10
+ 
   class Day10
     {
         public static void Part1(StreamReader sr)
