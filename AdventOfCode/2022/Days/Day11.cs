@@ -4,6 +4,7 @@
         public class Monkey{
             public int monkeyNum;
             public List<int> values = new List<int>();
+            public List <long> bigValues = new List<long>();
             public int numCounted = 0;
             public String[] operation = new string[3];
             public int testDiv;
@@ -66,13 +67,13 @@
         public static void monkeyHarder(List<Monkey> monkeys, int blackMagic){ //I was unable to work out the "trick" to this part, needed a friend to give a hint. Code is my own.
                 for (int i = 0; i < monkeys.Count(); i++){
                     int removeNum = 0;
-                    for(int j = 0; j < monkeys[i].values.Count(); j++){
-                        int firstOperationPosition = 0;
-                        int secondOperationPosition = 0;
+                    for(int j = 0; j < monkeys[i].bigValues.Count(); j++){
+                        long firstOperationPosition = 0;
+                        long secondOperationPosition = 0;
                         int value = 0;
 
                         if(monkeys[i].operation[0].Contains("old")){
-                            firstOperationPosition = monkeys[i].values[j];
+                            firstOperationPosition = monkeys[i].bigValues[j];
                         }
                         else{
                             firstOperationPosition = Int32.Parse(monkeys[i].operation[0]);
@@ -80,38 +81,37 @@
 
                         string midOperator = monkeys[i].operation[1];
                         if(monkeys[i].operation[2].Contains("old")){
-                            secondOperationPosition = monkeys[i].values[j];
+                            secondOperationPosition = monkeys[i].bigValues[j];
                         }
                         else{
                             secondOperationPosition = Int32.Parse(monkeys[i].operation[2]);
                         }
 
+                        long bigVal = 0;
+
                         if (midOperator == "+"){
-                            value = firstOperationPosition + secondOperationPosition;
+                            bigVal = (firstOperationPosition + secondOperationPosition);
                         }
                         else if (midOperator == "*"){
-                            value = firstOperationPosition * secondOperationPosition;
+                            bigVal = (firstOperationPosition * secondOperationPosition);
                         }
 
-                        if (value < 0){
-                            Console.Write(value + "\n");
-                        }
-                        value = value % blackMagic;
+                        bigVal = bigVal % blackMagic;
                         int testNum = monkeys[i].testDiv;
-                        if (value%testNum == 0){
-                            monkeys[monkeys[i].testSuccessTarget].values.Add(value);
+                        if (bigVal%testNum == 0){
+                            monkeys[monkeys[i].testSuccessTarget].bigValues.Add(value);
                             //Console.Write(value + "%" + testNum + ": Monkey " + i + "\n");
                             removeNum++;
                         }
                         else{
-                            monkeys[monkeys[i].testFailTarget].values.Add(value);
+                            monkeys[monkeys[i].testFailTarget].bigValues.Add(value);
                             removeNum++;
                         }
                         monkeys[i].numCounted++;
                     }
                     if (removeNum > 0){
                         for (int j = 0; j < removeNum; j++){
-                            monkeys[i].values.RemoveAt(0);
+                            monkeys[i].bigValues.RemoveAt(0);
                         }
                     }
                 }
@@ -191,7 +191,7 @@
                     }
                     else if(lineSplitter[2]=="Starting"){
                         for(int i = 4; i < (lineSplitter.Count()); i++){
-                            monkeys[iterator].values.Add(Int32.Parse(lineSplitter[i].Split(",")[0]));
+                            monkeys[iterator].bigValues.Add(long.Parse(lineSplitter[i].Split(",")[0]));
                         }
                     }
                     else if(lineSplitter[2]=="Operation:"){
