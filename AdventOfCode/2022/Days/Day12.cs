@@ -3,45 +3,40 @@
 
         public class Node{
             public int[] location = new int[2];
-            public Boolean visited = false;
-            public int distance = 0;
+            public int distance = int.MaxValue;
             public char value;
 
         }
-        public static int shortestPath(List<List<Node>> grid, List<Node> queue){
-            while(queue[0]!=null){
-                if (queue[0].value > 'z'){
-                    return queue[0].distance;
+        public static int shortestPath(List<List<Node>> grid, Queue<Node> queue){
+            while(queue.Count > 0){
+                Node current = queue.Dequeue();
+                if (current.value > 'z'){
+                    return current.distance;
                 }
-                if(queue[0].location[0] > 0){
-                    if (queue[0].value - grid[queue[0].location[0]-1][queue[0].location[1]].value >= -1 && grid[queue[0].location[0]-1][queue[0].location[1]].visited == false){
-                        queue.Add(grid[queue[0].location[0]-1][queue[0].location[1]]);
-                        grid[queue[0].location[0]-1][queue[0].location[1]].visited = true;
-                        grid[queue[0].location[0]-1][queue[0].location[1]].distance = queue[0].distance + 1;
+                if(current.location[0] > 0){
+                    if (current.value - grid[current.location[0]-1][current.location[1]].value >= -1 && grid[current.location[0]-1][current.location[1]].distance == int.MaxValue){
+                        queue.Enqueue(grid[current.location[0]-1][current.location[1]]);
+                        grid[current.location[0]-1][current.location[1]].distance = current.distance + 1;
                     }
                 }
-                if(queue[0].location[0] < grid.Count()-1){
-                    if (queue[0].value - grid[queue[0].location[0]+1][queue[0].location[1]].value >= -1 && grid[queue[0].location[0]+1][queue[0].location[1]].visited == false){
-                        queue.Add(grid[queue[0].location[0]+1][queue[0].location[1]]);
-                        grid[queue[0].location[0]+1][queue[0].location[1]].visited = true;
-                        grid[queue[0].location[0]+1][queue[0].location[1]].distance = queue[0].distance + 1;
+                if(current.location[0] < grid.Count()-1){
+                    if (current.value - grid[current.location[0]+1][current.location[1]].value >= -1 && grid[current.location[0]+1][current.location[1]].distance == int.MaxValue){
+                        queue.Enqueue(grid[current.location[0]+1][current.location[1]]);
+                        grid[current.location[0]+1][current.location[1]].distance = current.distance + 1;
                     }
                 }
-                if(queue[0].location[1] > 0){
-                    if (queue[0].value - grid[queue[0].location[0]][queue[0].location[1]-1].value >= -1 && grid[queue[0].location[0]][queue[0].location[1]-1].visited == false){
-                        queue.Add(grid[queue[0].location[0]][queue[0].location[1]-1]);
-                        grid[queue[0].location[0]][queue[0].location[1]-1].visited = true;
-                        grid[queue[0].location[0]][queue[0].location[1]-1].distance = queue[0].distance + 1;
+                if(current.location[1] > 0){
+                    if (current.value - grid[current.location[0]][current.location[1]-1].value >= -1 && grid[current.location[0]][current.location[1]-1].distance == int.MaxValue){
+                        queue.Enqueue(grid[current.location[0]][current.location[1]-1]);
+                        grid[current.location[0]][current.location[1]-1].distance = current.distance + 1;
                     }
                 }
-                if(queue[0].location[1] < grid[0].Count()-1){
-                    if (queue[0].value - grid[queue[0].location[0]][queue[0].location[1]+1].value >= -1 && grid[queue[0].location[0]][queue[0].location[1]+1].visited == false){
-                        queue.Add(grid[queue[0].location[0]][queue[0].location[1]+1]);
-                        grid[queue[0].location[0]][queue[0].location[1]+1].visited = true;
-                        grid[queue[0].location[0]][queue[0].location[1]+1].distance = queue[0].distance + 1;
+                if(current.location[1] < grid[0].Count()-1){
+                    if (current.value - grid[current.location[0]][current.location[1]+1].value >= -1 && grid[current.location[0]][current.location[1]+1].distance == int.MaxValue){
+                        queue.Enqueue(grid[current.location[0]][current.location[1]+1]);
+                        grid[current.location[0]][current.location[1]+1].distance = current.distance + 1;
                     }
                 }
-                queue.RemoveAt(0);
                 return shortestPath(grid, queue);
             }
             return 0;
@@ -51,7 +46,7 @@
             string line = "";
             line = sr.ReadLine();
             List<List<Node>> grid = new List<List<Node>>();
-            List<Node> queue = new List<Node>();
+            Queue<Node> queue = new Queue<Node>();
             int iterator = 0;
             Node start = new Node();
             while (line!=null){
@@ -63,9 +58,9 @@
                     grid[iterator][i].value = line[i];
                     if (line[i]=='S'){
                         grid[iterator][i].value = (char)('a' - 1);
-                        grid[iterator][i].visited = true;
+                        grid[iterator][i].distance = 0;
                         start = grid[iterator][i];
-                        queue.Add(start);
+                        queue.Enqueue(start);
                     }
                     if (line[i] == 'E'){
                         grid[iterator][i].value = (char)('z' + 1);
