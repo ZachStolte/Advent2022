@@ -1,10 +1,11 @@
+  using System.Numerics;
   class Day11
     {
 
         public class Monkey{
             public int monkeyNum;
             public List<int> values = new List<int>();
-            public List <long> bigValues = new List<long>();
+            public List <BigInteger> bigValues = new List<BigInteger>();
             public int numCounted = 0;
             public String[] operation = new string[3];
             public int testDiv;
@@ -68,8 +69,8 @@
                 for (int i = 0; i < monkeys.Count(); i++){
                     int removeNum = 0;
                     for(int j = 0; j < monkeys[i].bigValues.Count(); j++){
-                        long firstOperationPosition = 0;
-                        long secondOperationPosition = 0;
+                        BigInteger firstOperationPosition = 0;
+                        BigInteger secondOperationPosition = 0;
                         int value = 0;
 
                         if(monkeys[i].operation[0].Contains("old")){
@@ -87,7 +88,7 @@
                             secondOperationPosition = Int32.Parse(monkeys[i].operation[2]);
                         }
 
-                        long bigVal = 0;
+                        BigInteger bigVal = 0;
 
                         if (midOperator == "+"){
                             bigVal = (firstOperationPosition + secondOperationPosition);
@@ -191,7 +192,7 @@
                     }
                     else if(lineSplitter[2]=="Starting"){
                         for(int i = 4; i < (lineSplitter.Count()); i++){
-                            monkeys[iterator].bigValues.Add(long.Parse(lineSplitter[i].Split(",")[0]));
+                            monkeys[iterator].bigValues.Add(BigInteger.Parse(lineSplitter[i].Split(",")[0]));
                         }
                     }
                     else if(lineSplitter[2]=="Operation:"){
