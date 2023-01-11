@@ -54,8 +54,8 @@
                         }
 
                         foreach(Valve valve in current.connectors){
-                            queue.Enqueue(valve);
                             if (!distanceSet.ContainsKey(valve)){
+                                queue.Enqueue(valve);
                                 distanceSet.Add(valve, distanceSet[current]+1);
                             }
                         }
@@ -93,7 +93,12 @@
                 line = sr.ReadLine();
             }
 
-            int shortestPath = findShortestPath(valves, new mathJockey(), new List<String>(), 30, valves["AA"]);     
+            Dictionary<string, Valve> realValves = new Dictionary<string, Valve>();
+            foreach(Valve valve in valves.Values){
+                if (valve.flowRate>0 || valve.name == "AA") realValves.Add(valve.name, valve);
+            }
+
+            int shortestPath = findShortestPath(realValves, new mathJockey(), new List<String>(), 30, valves["AA"]);     
 
             Console.Write(shortestPath);
 
@@ -101,14 +106,19 @@
 
         public static int findShortestPath(Dictionary<string, Valve> valves, mathJockey glasses, List<string> openValves, int minutes, Valve current){
             string[] valveStorage = openValves.ToArray();
+            List<string> localValves = new List<string>();
+            foreach(string i in openValves) localValves.Add(i);
             if (glasses.topScore.ContainsKey((valveStorage, current, minutes))) return glasses.topScore[(valveStorage, current, minutes)];
 
             int score = 0;
-            if (current.flowRate > 0 && !current.open){
+            if (current.flowRate > 0 && !current.open && minutes > 0){
                 minutes--;
                 current.open = true;
                 score = minutes * current.flowRate;
-                openValves.Add(current.name);
+                localValves.Add(current.name);
+            }
+            else if (minutes <= 0){
+                return score;
             }
 
             PriorityQueue<Valve, double> prioQueue = new PriorityQueue<Valve, double>();
@@ -134,7 +144,7 @@
                 int distance = glasses.getDistance(valve.name, current.name, valves);
                 if (! (distance > minutes)){
                     minutes -= distance;
-                    topScore = Math.Max(findShortestPath(valves, glasses, openValves, minutes, valve), topScore);
+                    topScore = Math.Max(findShortestPath(valves, glasses, localValves, minutes, valve), topScore);
                     minutes += distance;
                 }
             }
