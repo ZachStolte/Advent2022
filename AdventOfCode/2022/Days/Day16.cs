@@ -71,9 +71,15 @@
             Dictionary<string, Valve> valves = new Dictionary<string, Valve>();
             line = sr.ReadLine();
             while (line!=null){
-                (Valve, List<String>) parsed = readInput(line);
-                valves.Add(parsed.Item1.name, parsed.Item1);
-                foreach(string name in parsed.Item2){
+                (Valve, int, List<String>) parsed = readInput(line);
+                if (!valves.ContainsKey(parsed.Item1.name)){
+                    valves.Add(parsed.Item1.name, parsed.Item1);
+                } else {
+                    valves[parsed.Item1.name].flowRate = parsed.Item2;
+                    valves[parsed.Item1.name].connectors = parsed.Item1.connectors;
+                }
+
+                foreach(string name in parsed.Item3){
                     if (!valves.ContainsKey(name)){
                         Valve valve = new Valve(name);
                         valves.Add(name, valve);
@@ -83,6 +89,7 @@
                         parsed.Item1.connectors.Add(valves[name]);
                     }
                 }
+                //valves[parsed.Item1.name].flowRate = parsed.Item2;
                 line = sr.ReadLine();
             }
 
@@ -127,8 +134,7 @@
                 int distance = glasses.getDistance(valve.name, current.name, valves);
                 if (! (distance > minutes)){
                     minutes -= distance;
-                    int tempScore = findShortestPath(valves, glasses, openValves, minutes, valve);
-                    if (tempScore > topScore) topScore = tempScore;
+                    topScore = Math.Max(findShortestPath(valves, glasses, openValves, minutes, valve), topScore);
                     minutes += distance;
                 }
             }
@@ -140,8 +146,8 @@
             return score;
         }
 
-        public static (Valve, List<String>) readInput(string line){
-            string name = line.Substring(2, 6);
+        public static (Valve, int, List<String>) readInput(string line){
+            string name = line.Substring(6, 2);
             int flow = int.Parse(line.Substring(line.IndexOf('=')+1).Split(";")[0]);
 
             string list = line.Split(';')[1];
@@ -158,11 +164,11 @@
                 }
 
                 newItem.Trim();
-                newItem.Substring(0, newItem.Count()-1);
+                newItem = newItem.Split(",")[0];
                 connections.Add(newItem);
             }
 
-            return(valve, connections);
+            return(valve, flow, connections);
         }
 
         public static void Part2(StreamReader sr)
