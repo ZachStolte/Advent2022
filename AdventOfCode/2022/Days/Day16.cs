@@ -68,6 +68,7 @@
         public static void Part1(StreamReader sr)
         {
             string line = "";
+            var watch = System.Diagnostics.Stopwatch.StartNew();
             Dictionary<string, Valve> valves = new Dictionary<string, Valve>();
             line = sr.ReadLine();
             while (line!=null){
@@ -100,6 +101,8 @@
 
             int shortestPath = findShortestPath(realValves, new mathJockey(), new List<String>(), 30, valves["AA"]);     
 
+            watch.Stop();
+            Console.Write(watch.Elapsed + "\n");
             Console.Write(shortestPath);
 
         }
